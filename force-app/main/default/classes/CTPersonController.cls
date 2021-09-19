@@ -30,4 +30,16 @@ public class CTPersonController {
 
         return null;
     }
+
+    public static Map<String, Integer> getHealthStatusCount() {
+        Map<String, Integer> healthStatusGroup = new Map<String, Integer>();
+
+        for(AggregateResult ar: [SELECT Health_Status__c HealthStatus, Count(Id) NumberOfPeople FROM Person__c GROUP BY Health_Status__c]){
+            String healthStatus = String.valueOf(ar.get('HealthStatus'));
+            Integer count = Integer.valueOf(ar.get('NumberOfPeople'));
+            healthStatusGroup.put(healthStatus, count);
+        }
+
+        return healthStatusGroup;
+    }
 }
