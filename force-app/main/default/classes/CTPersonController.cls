@@ -42,4 +42,34 @@ public class CTPersonController {
 
         return healthStatusGroup;
     }
+
+    /*
+    * Fetching the list of people who live together (Cohabitants)
+    * Making sure their heath status is already not Red or Orange
+    * Only making sure unique person IDs are returned. Ex: Person1 have met with Person2, and Person2 have met with Person5 - in this case we have multiple Person2 recs
+    */
+    public static Set<Id> getCohabitants(Set<Id> personIds) {
+        List<String> healthStatuses = new List<String>{'Red', 'Orange'};
+
+        List<People_Tracing__c> peopleTraces = [SELECT Id, Person_2__c, Person_1__c, Name, Contact_Type__c FROM People_Tracing__c 
+                                                WHERE (Person_1__c IN :personIds OR Person_1__c IN :personIds) 
+                                                AND Contact_Type__c = 'Cohabitant'
+                                                AND (Person_1__r.Health_Status__c NOT IN :healthStatuses OR Person_2__r.Health_Status__c NOT IN :healthStatuses)];
+
+        Set<Id> cohabitants = new Set<Id>();
+
+        for(People_Tracing__c pt: peopleTraces){
+
+            //adding person Person_1__c and Person_2__c to th list if not exist
+            if(!personIds.contains(pt.Person_1__c)){
+                cohabitants.add(pt.Person_1__c)
+            }
+
+            if(!personIds.contains(pt.Person_2__c)){
+                cohabitants.add(pt.Person_2__c)
+            }
+        }
+
+        return cohabitants;
+    }
 }
