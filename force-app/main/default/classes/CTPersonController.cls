@@ -72,4 +72,32 @@ public class CTPersonController {
 
         return cohabitants;
     }
+
+
+    /**
+    * Selecting the neighbours where their health status is Green (Yello, Orange and Red will be ignored)
+    */
+    public static Set<Id> getNeighbours(Set<Id> personIds) {
+
+        List<People_Tracing__c> peopleTraces = [SELECT Id, Person_2__c, Person_1__c, Name, Contact_Type__c FROM People_Tracing__c 
+                                                WHERE (Person_1__c IN :personIds OR Person_1__c IN :personIds) 
+                                                AND Contact_Type__c = 'Neighbour'
+                                                AND (Person_1__r.Health_Status__c = 'Green' OR Person_2__r.Health_Status__c = 'Green')];
+
+        Set<Id> neighbours = new Set<Id>();
+
+        for(People_Tracing__c pt: peopleTraces){
+
+            //adding person Person_1__c and Person_2__c to th list if not exist
+            if(!personIds.contains(pt.Person_1__c)){
+                neighbours.add(pt.Person_1__c)
+            }
+
+            if(!personIds.contains(pt.Person_2__c)){
+                neighbours.add(pt.Person_2__c)
+            }
+        }
+
+        return neighbours;
+    }
 }
