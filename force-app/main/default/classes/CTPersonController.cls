@@ -100,4 +100,67 @@ public class CTPersonController {
 
         return neighbours;
     }
+
+
+    /*
+    * Fetching the primary contacts
+    * The status "Other" will be used
+    */
+    public static Set<Id> getPrimaryContacts(Set<Id> personIds) {
+
+        List<String> healthStatuses = new List<String>{'Red', 'Orange'};
+
+        List<People_Tracing__c> peopleTraces = [SELECT Id, Person_2__c, Person_1__c, Name, Contact_Type__c FROM People_Tracing__c 
+                                                WHERE (Person_1__c IN :personIds OR Person_1__c IN :personIds) 
+                                                AND Contact_Type__c = 'Other'
+                                                AND (Person_1__r.Health_Status__c NOT IN:healthStatuses OR Person_2__r.Health_Status__c NOT IN:healthStatuses) 
+                                                AND Contact_Date__c = LAST_N_DAYS:10];
+
+        Set<Id> primaryContacts = new Set<Id>();
+
+        for(People_Tracing__c pt: peopleTraces){
+
+            //adding person Person_1__c and Person_2__c to th list if not exist
+            if(!personIds.contains(pt.Person_1__c)){
+                primaryContacts.add(pt.Person_1__c)
+            }
+
+            if(!personIds.contains(pt.Person_2__c)){
+                primaryContacts.add(pt.Person_2__c)
+            }
+        }
+
+        return primaryContacts;
+    }
+
+
+    /*
+    * Fetching the secondary contacts
+    * The status "Other" will be used
+    * In order to fetch Secondary contacts we need to pass the primary contacts as a parameter returned from the function getPrimaryContacts above
+    */
+    public static Set<Id> getSecondaryContacts(Set<Id> primaryContactIds) {
+
+        List<People_Tracing__c> peopleTraces = [SELECT Id, Person_2__c, Person_1__c, Name, Contact_Type__c FROM People_Tracing__c 
+                                                WHERE (Person_1__c IN :primaryContactIds OR Person_1__c IN :primaryContactIds) 
+                                                AND Contact_Type__c = 'Other'
+                                                AND (Person_1__r.Health_Status__c = 'Green' OR Person_2__r.Health_Status__c = 'Green') 
+                                                AND Contact_Date__c = LAST_N_DAYS:10];
+
+        Set<Id> secondaryContacts = new Set<Id>();
+
+        for(People_Tracing__c pt: peopleTraces){
+
+            //adding person Person_1__c and Person_2__c to th list if not exist
+            if(!primaryContactIds.contains(pt.Person_1__c)){
+                secondaryContacts.add(pt.Person_1__c)
+            }
+
+            if(!primaryContactIds.contains(pt.Person_2__c)){
+                secondaryContacts.add(pt.Person_2__c)
+            }
+        }
+
+        return secondaryContacts;
+    }
 }
