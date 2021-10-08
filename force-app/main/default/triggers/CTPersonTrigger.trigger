@@ -8,5 +8,9 @@ trigger CTPersonTrigger on Person__c (before insert, after update, before update
         when BEFORE_UPDATE {
             PersonTriggerHandler.beforeUpdate(Trigger.New, Trigger.oldMap);
         }
+
+        when AFTER_UPDATE {
+            PersonTriggerHandler.afterUpdate(Trigger.New, Trigger.oldMap);
+        }
     }
 }

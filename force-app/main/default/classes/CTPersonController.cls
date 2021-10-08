@@ -45,10 +45,11 @@ public class CTPersonController {
 
     /*
     * Fetching the list of people who live together (Cohabitants)
+    * Cohabitants belong to the Orange category
     * Making sure their heath status is already not Red or Orange
     * Only making sure unique person IDs are returned. Ex: Person1 have met with Person2, and Person2 have met with Person5 - in this case we have multiple Person2 recs
     */
-    public static Set<Id> getCohabitants(Set<Id> personIds) {
+    public static Set<Id> getCohabitants(Set<Id> personIds, Set<Id> alreadyProcessed) {
         List<String> healthStatuses = new List<String>{'Red', 'Orange'};
 
         List<People_Tracing__c> peopleTraces = [SELECT Id, Person_2__c, Person_1__c, Name, Contact_Type__c FROM People_Tracing__c 
@@ -61,12 +62,14 @@ public class CTPersonController {
         for(People_Tracing__c pt: peopleTraces){
 
             //adding person Person_1__c and Person_2__c to th list if not exist
-            if(!personIds.contains(pt.Person_1__c)){
+            if(!alreadyProcessed.contains(pt.Person_1__c)){
                 cohabitants.add(pt.Person_1__c)
+                alreadyProcessed.add(pt.Person_1__c);
             }
 
-            if(!personIds.contains(pt.Person_2__c)){
+            if(!alreadyProcessed.contains(pt.Person_2__c)){
                 cohabitants.add(pt.Person_2__c)
+                alreadyProcessed.add(pt.Person_2__c)
             }
         }
 
@@ -76,8 +79,9 @@ public class CTPersonController {
 
     /**
     * Selecting the neighbours where their health status is Green (Yello, Orange and Red will be ignored)
+    * Neighbours belong to the Yellow category
     */
-    public static Set<Id> getNeighbours(Set<Id> personIds) {
+    public static Set<Id> getNeighbours(Set<Id> personIds, Set<Id> alreadyProcessed) {
 
         List<People_Tracing__c> peopleTraces = [SELECT Id, Person_2__c, Person_1__c, Name, Contact_Type__c FROM People_Tracing__c 
                                                 WHERE (Person_1__c IN :personIds OR Person_1__c IN :personIds) 
@@ -89,12 +93,14 @@ public class CTPersonController {
         for(People_Tracing__c pt: peopleTraces){
 
             //adding person Person_1__c and Person_2__c to th list if not exist
-            if(!personIds.contains(pt.Person_1__c)){
+            if(!alreadyProcessed.contains(pt.Person_1__c)){
                 neighbours.add(pt.Person_1__c)
+                alreadyProcessed.add(pt.Person_1__c)
             }
 
-            if(!personIds.contains(pt.Person_2__c)){
+            if(!alreadyProcessed.contains(pt.Person_2__c)){
                 neighbours.add(pt.Person_2__c)
+                alreadyProcessed.add(pt.Person_2__c)
             }
         }
 
@@ -104,9 +110,10 @@ public class CTPersonController {
 
     /*
     * Fetching the primary contacts
+    * Primary contacts belong to the Orange category
     * The status "Other" will be used
     */
-    public static Set<Id> getPrimaryContacts(Set<Id> personIds) {
+    public static Set<Id> getPrimaryContacts(Set<Id> personIds, Set<Id> alreadyProcessed) {
 
         List<String> healthStatuses = new List<String>{'Red', 'Orange'};
 
@@ -121,12 +128,14 @@ public class CTPersonController {
         for(People_Tracing__c pt: peopleTraces){
 
             //adding person Person_1__c and Person_2__c to th list if not exist
-            if(!personIds.contains(pt.Person_1__c)){
+            if(!alreadyProcessed.contains(pt.Person_1__c)){
                 primaryContacts.add(pt.Person_1__c)
+                alreadyProcessed.add(pt.Person_1__c)
             }
 
-            if(!personIds.contains(pt.Person_2__c)){
+            if(!alreadyProcessed.contains(pt.Person_2__c)){
                 primaryContacts.add(pt.Person_2__c)
+                alreadyProcessed.add(pt.Person_2__c)
             }
         }
 
@@ -136,10 +145,11 @@ public class CTPersonController {
 
     /*
     * Fetching the secondary contacts
+    * Secondary contacts belongs to Yellow category
     * The status "Other" will be used
     * In order to fetch Secondary contacts we need to pass the primary contacts as a parameter returned from the function getPrimaryContacts above
     */
-    public static Set<Id> getSecondaryContacts(Set<Id> primaryContactIds) {
+    public static Set<Id> getSecondaryContacts(Set<Id> primaryContactIds, Set<Id> alreadyProcessed) {
 
         List<People_Tracing__c> peopleTraces = [SELECT Id, Person_2__c, Person_1__c, Name, Contact_Type__c FROM People_Tracing__c 
                                                 WHERE (Person_1__c IN :primaryContactIds OR Person_1__c IN :primaryContactIds) 
