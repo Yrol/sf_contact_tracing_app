@@ -50,13 +50,12 @@ public with sharing class PersonTriggerHandler {
         //Adding cohabitants
         orangeStatus.addAll(CTPersonController.getCohabitants(redStatus, alreadyProcessed));
 
-        //Adding neighbours
-        yellowStatus.addAll(CTPersonController.getNeighbours(redStatus, alreadyProcessed));
-        
         //adding primary contacts
         Set<Id> primaryContacts = CTPersonController.getPrimaryContacts(redStatus, alreadyProcessed)
-        
         orangeStatus.addAll(primaryContacts);
+
+        //Adding neighbours
+        yellowStatus.addAll(CTPersonController.getNeighbours(redStatus, alreadyProcessed));
 
         //adding secondary contacts
         yellowStatus.addAll(CTPersonController.getSecondaryContacts(primaryContacts, alreadyProcessed));
