@@ -47,11 +47,13 @@ public with sharing class PersonTriggerHandler {
 
         alreadyProcessed.addAll(redStatus);
 
+        List<Person__c> personToUpdate = new List<Person__c>();
+
         //Adding cohabitants
         orangeStatus.addAll(CTPersonController.getCohabitants(redStatus, alreadyProcessed));
 
         //adding primary contacts
-        Set<Id> primaryContacts = CTPersonController.getPrimaryContacts(redStatus, alreadyProcessed)
+        Set<Id> primaryContacts = CTPersonController.getPrimaryContacts(redStatus, alreadyProcessed);
         orangeStatus.addAll(primaryContacts);
 
         //Adding neighbours
@@ -59,5 +61,26 @@ public with sharing class PersonTriggerHandler {
 
         //adding secondary contacts
         yellowStatus.addAll(CTPersonController.getSecondaryContacts(primaryContacts, alreadyProcessed));
+
+        for(Id pid: orangeStatus) {
+            personToUpdate.add(new Person__c(Id=pid, Health_Status__c = 'Orange'));
+        }
+
+        for(Id pid: yellowStatus) {
+            personToUpdate.add(new Person__c(Id=pid, Health_Status__c = 'Yellow'));
+        }
+
+        if(personToUpdate.size() > 0) {
+            update personToUpdate;
+        }
+
+        List<Location_Tracing__c> locationTraces = CTLocationTracingController.getLocationByPersonIds(statusChange);
+
+        if(locationTraces != null && locationTraces.size() > 0){
+            Set<Id> locationIds = new Set<Id>();
+            for(Location_Tracing__c trace: locationTraces) {
+                locationIds.add(trace.Location__c);
+            }
+        }
     }
 }

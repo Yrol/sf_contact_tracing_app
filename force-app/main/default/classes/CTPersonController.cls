@@ -63,13 +63,13 @@ public class CTPersonController {
 
             //adding person Person_1__c and Person_2__c to th list if not exist
             if(!alreadyProcessed.contains(pt.Person_1__c)){
-                cohabitants.add(pt.Person_1__c)
+                cohabitants.add(pt.Person_1__c);
                 alreadyProcessed.add(pt.Person_1__c);
             }
 
             if(!alreadyProcessed.contains(pt.Person_2__c)){
-                cohabitants.add(pt.Person_2__c)
-                alreadyProcessed.add(pt.Person_2__c)
+                cohabitants.add(pt.Person_2__c);
+                alreadyProcessed.add(pt.Person_2__c);
             }
         }
 
@@ -94,13 +94,13 @@ public class CTPersonController {
 
             //adding person Person_1__c and Person_2__c to th list if not exist
             if(!alreadyProcessed.contains(pt.Person_1__c)){
-                neighbours.add(pt.Person_1__c)
-                alreadyProcessed.add(pt.Person_1__c)
+                neighbours.add(pt.Person_1__c);
+                alreadyProcessed.add(pt.Person_1__c);
             }
 
             if(!alreadyProcessed.contains(pt.Person_2__c)){
-                neighbours.add(pt.Person_2__c)
-                alreadyProcessed.add(pt.Person_2__c)
+                neighbours.add(pt.Person_2__c);
+                alreadyProcessed.add(pt.Person_2__c);
             }
         }
 
@@ -129,13 +129,13 @@ public class CTPersonController {
 
             //adding person Person_1__c and Person_2__c to th list if not exist
             if(!alreadyProcessed.contains(pt.Person_1__c)){
-                primaryContacts.add(pt.Person_1__c)
-                alreadyProcessed.add(pt.Person_1__c)
+                primaryContacts.add(pt.Person_1__c);
+                alreadyProcessed.add(pt.Person_1__c);
             }
 
             if(!alreadyProcessed.contains(pt.Person_2__c)){
-                primaryContacts.add(pt.Person_2__c)
-                alreadyProcessed.add(pt.Person_2__c)
+                primaryContacts.add(pt.Person_2__c);
+                alreadyProcessed.add(pt.Person_2__c);
             }
         }
 
@@ -163,11 +163,11 @@ public class CTPersonController {
 
             //adding person Person_1__c and Person_2__c to th list if not exist
             if(!primaryContactIds.contains(pt.Person_1__c)){
-                secondaryContacts.add(pt.Person_1__c)
+                secondaryContacts.add(pt.Person_1__c);
             }
 
             if(!primaryContactIds.contains(pt.Person_2__c)){
-                secondaryContacts.add(pt.Person_2__c)
+                secondaryContacts.add(pt.Person_2__c);
             }
         }
 

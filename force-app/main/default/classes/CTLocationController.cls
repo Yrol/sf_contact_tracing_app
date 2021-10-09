@@ -24,6 +24,43 @@ public class CTLocationController {
         return null;
     }
 
+    
+    public static void updateRedScore(Set<Id> locationIds) {
+
+        List<Location__c> locationToUpdate = new List<Location__c>();
+
+        //Grouping locations by location Ids where the Red health status people visited in last 10 days
+        AggregateResult[] redPeoplePerLocation = [SELECT Location__c, COUNT(Id) total FROM Location_Tracing__c 
+                                                    WHERE  Person__r.Health_Status__c = 'Red' 
+                                                    AND Visit_Date__c = LAST_N_DAYS :10 
+                                                    AND Location__c IN : locationIds 
+                                                    GROUP BY Location__c];
+
+        for (AggregateResult ar: redPeoplePerLocation) {
+            String locationId = String.valueOf(ar.get('Location__c'));
+            Integer redScore = Integer.valueOf(ar.get('total'));
+            String status = getStatus(redScore);
+            locationToUpdate.add(new Location__c(Id=locationId, Red_Score__c=redScore, Status__c=status));
+        }
+
+        if(locationToUpdate != null && locationToUpdate.size() > 0) {
+            update locationToUpdate;
+        }
+    }
+
+    //Generate the status for a given location based on the number of Red cases
+    public static String getStatus(Integer redScore){
+        if(redScore == 0){
+            return 'Green';
+        } else if(redScore <= 5){
+            return 'Yellow';
+        } else if(redScore <= 10) {
+            return 'Orange';
+        } else {
+            return 'Red';
+        }
+    }
+
     public static Map<String, Integer> getStatusCount() {
         Map<String, Integer> healthStatusGroup = new Map<String, Integer>();
 
