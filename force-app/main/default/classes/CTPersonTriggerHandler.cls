@@ -1,4 +1,4 @@
-public with sharing class PersonTriggerHandler {
+public with sharing class CTPersonTriggerHandler {
 
     public static void beforeInsert(List<Person__c> newRecords) {
         for(Person__c personRecord: newRecords){
@@ -81,6 +81,7 @@ public with sharing class PersonTriggerHandler {
             for(Location_Tracing__c trace: locationTraces) {
                 locationIds.add(trace.Location__c);
             }
+            CTLocationController.updateRedScore(locationIds);
         }
     }
 }
