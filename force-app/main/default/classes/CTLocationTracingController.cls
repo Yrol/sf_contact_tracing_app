@@ -30,19 +30,19 @@ public class CTLocationTracingController {
         Set<String> locationTraceKeys = new Set<String>();
         List<Location_Tracing__c> duplicates = new List<Location_Tracing__c>();
 
-        for(Location_Tracing__c lt: newLocationTraces) {
+        for(Location_Tracing__c lt: [SELECT Id, Person__c, Location__c, Visit_Date__c FROM Location_Tracing__c]){
             String comparekey = lt.Person__c + '' + lt.Location__c + '' + lt.Visit_Date__c;
             locationTraceKeys.add(comparekey);
         }
 
-        for(Location_Tracing__c lt: [SELECT Id, Person__c, Location__c, Visit_Date__c FROM Location_Tracing__c]){
+        for(Location_Tracing__c lt: newLocationTraces) {
             String comparekey = lt.Person__c + '' + lt.Location__c + '' + lt.Visit_Date__c;
             if(locationTraceKeys.contains(comparekey)){
-                duplicates.add(lt);
+                duplicates.add(lt);   
             }
         }
 
-        if(duplicates != null && duplicates.size() >  0){
+        if(duplicates.size() >  0){
             return duplicates;
         }
 
