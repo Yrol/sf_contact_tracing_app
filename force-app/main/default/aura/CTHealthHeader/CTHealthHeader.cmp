@@ -1,11 +1,13 @@
 <aura:component implements="flexipage:availableForAllPageTypes">
+    <aura:attribute name="title" type="String" default="Person View" />
+
     <div class="slds-page-header slds-page-header_record-home">
         <div class="slds-page-header__row">
             <div class="slds-page-header__col-title">
                 <div class="slds-media">
                     <div class="slds-media__figure">
                         <span class="slds-icon_container slds-icon-standard-opportunity">
-                            <!-- Using the Queue icon under standard category in https://www.lightningdesignsystem.com/icons/ -->
+                            <!-- Using the Queue icon under the "standard" category in https://www.lightningdesignsystem.com/icons/ -->
                             <lightning:icon iconName="standard:queue" />
                         </span>
                     </div>
@@ -14,7 +16,7 @@
                             <div class="slds-page-header__name-title">
                                 <h1>
                                     <span>Contact Tracing</span>
-                                    <span class="slds-page-header__title slds-truncate">Person View</span>
+                                    <span class="slds-page-header__title slds-truncate">{!v.title}</span>
                                 </h1>
                             </div>
                         </div>
