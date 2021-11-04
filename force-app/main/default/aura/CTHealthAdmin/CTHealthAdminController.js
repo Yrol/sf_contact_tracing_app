@@ -7,9 +7,11 @@
         switch (tab.get('v.id')) {
             case 'location_view' :
                 healthHeader.set("v.title", "Location View");
+                healthHeader.set("v.scope", "location");
                 break;
             case 'person_view' :
                 healthHeader.set("v.title", "Person View");
+                healthHeader.set("v.scope", "person");
                 break;
         }
     },

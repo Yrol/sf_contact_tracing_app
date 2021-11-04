@@ -1,5 +1,6 @@
 <aura:component implements="flexipage:availableForAllPageTypes">
     <aura:attribute name="title" type="String" default="Person View" />
+    <aura:attribute name="scope" type="String" default="person" />
 
     <div class="slds-page-header slds-page-header_record-home">
         <div class="slds-page-header__row">
@@ -31,7 +32,7 @@
                             aria-live="assertive"
                             aria-pressed="false"
                         >
-                            <span class="slds-text-not-selected"> Add New</span>
+                            <span class="slds-text-not-selected" onclick="{!c.createRecord}"> Add New</span>
                         </button>
                     </div>
                 </div>
