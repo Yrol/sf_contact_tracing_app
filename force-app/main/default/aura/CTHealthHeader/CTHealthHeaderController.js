@@ -11,5 +11,9 @@
             "entityApiName": scope === "person" ? "Person__c" : "Location__c"
         });
         createRecordEvent.fire();
+    },
+
+    doInit : function(component, event, helper) {
+        helper.getStatusCount(component);
     }
 })
