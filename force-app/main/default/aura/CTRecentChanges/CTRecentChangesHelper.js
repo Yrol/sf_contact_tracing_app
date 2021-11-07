@@ -1,7 +1,9 @@
 ({
     fetchPersonStatus : function(component) {
 
-        const action = component.get("c.getRecentPersonHealthChanges");
+        const scope = component.get('v.scope');
+        
+        const action = scope === "person" ?  component.get("c.getRecentPersonHealthChanges") : component.get("c.getRecentLocationHealthChanges");
 
         action.setCallback(this, function(response) {
             const state = response.getState();

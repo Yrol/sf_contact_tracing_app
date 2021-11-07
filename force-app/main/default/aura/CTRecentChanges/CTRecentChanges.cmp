@@ -3,6 +3,7 @@
     <aura:attribute name="data" type="Object" />
     <aura:attribute name="columns" type="List" />
     <aura:attribute name="isSearching" type="Boolean" default="false" />
+    <aura:attribute name="scope" type="String" default="person" />
 
     <div class="container">
         <lightning:card variant="Narrow" title="Recent Changes" iconName="standard:search">
