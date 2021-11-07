@@ -6,7 +6,9 @@
             </lightning:layoutItem>
             <lightning:layoutItem size="12">
                 <lightning:tabset variant="vertical">
-                    <lightning:tab label="Person View" id="person_view" onactive="{! c.handleActive }"> Person View </lightning:tab>
+                    <lightning:tab label="Person View" id="person_view" onactive="{! c.handleActive }">
+                        <c:CTRecentChanges />
+                    </lightning:tab>
                     <lightning:tab label="Location View" id="location_view" onactive="{! c.handleActive }">Location View </lightning:tab>
                 </lightning:tabset>
             </lightning:layoutItem>

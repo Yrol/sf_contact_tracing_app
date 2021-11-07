@@ -1,0 +1,31 @@
+<aura:component implements="flexipage:availableForAllPageTypes" controller="CTRecentChangesController">
+    <aura:handler name="init" value="{!this }" action="{!c.doInit }" />
+    <aura:attribute name="data" type="Object" />
+    <aura:attribute name="columns" type="List" />
+    <aura:attribute name="isSearching" type="Boolean" default="false" />
+
+    <div class="container">
+        <lightning:card variant="Narrow" title="Recent Changes" iconName="standard:search">
+            <!-- Search component-->
+            <aura:set attribute="actions">
+                <lightning:input
+                    name="search"
+                    label="Enter some text to search and hit enter"
+                    type="search"
+                    aura:id="enter-search"
+                    isLoading="{!v.isSearching}"
+                    placeholder="Search here... "
+                />
+            </aura:set>
+
+            <!-- User information display component-->
+            <lightning:layout horizontalAlign="left" class="slds-grid_vertical-align-end" multipleRows="true">
+                <lightning:layout horizontalAlign="left" class="slds-grid_vertical-align-end" multipleRows="true">
+                    <lightning:layoutItem size="12" padding="around-small">
+                        <lightning:datatable keyField="id" data="{! v.data }" columns="{! v.columns }" hideCheckboxColumn="true" />
+                    </lightning:layoutItem>
+                </lightning:layout>
+            </lightning:layout>
+        </lightning:card>
+    </div>
+</aura:component>
