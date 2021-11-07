@@ -15,5 +15,9 @@
 
     doInit : function(component, event, helper) {
         helper.getStatusCount(component);
+    },
+
+    selectedScope: function(component, event, helper) {
+        helper.getStatusCount(component);
     }
 })

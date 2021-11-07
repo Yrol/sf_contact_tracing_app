@@ -4,6 +4,8 @@
     <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
     <aura:attribute name="statusCount" type="Object" default="" />
 
+    <aura:method name="changeStatusCount" action="{!c.selectedScope}" />
+
     <div class="slds-page-header slds-page-header_record-home">
         <div class="slds-page-header__row">
             <div class="slds-page-header__col-title">

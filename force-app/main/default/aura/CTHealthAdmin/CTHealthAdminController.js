@@ -8,10 +8,12 @@
             case 'location_view' :
                 healthHeader.set("v.title", "Location View");
                 healthHeader.set("v.scope", "location");
+                healthHeader.changeStatusCount();
                 break;
             case 'person_view' :
                 healthHeader.set("v.title", "Person View");
                 healthHeader.set("v.scope", "person");
+                healthHeader.changeStatusCount();
                 break;
         }
     },
