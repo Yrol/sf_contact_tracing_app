@@ -4,19 +4,22 @@
     <aura:attribute name="columns" type="List" />
     <aura:attribute name="isSearching" type="Boolean" default="false" />
     <aura:attribute name="scope" type="String" default="person" />
+    <aura:attribute name="initialResponse" type="List" />
 
     <div class="container">
         <lightning:card variant="Narrow" title="Recent Changes" iconName="standard:search">
             <!-- Search component-->
             <aura:set attribute="actions">
-                <lightning:input
-                    name="search"
-                    label="Enter some text to search and hit enter"
-                    type="search"
-                    aura:id="enter-search"
-                    isLoading="{!v.isSearching}"
-                    placeholder="Search here... "
-                />
+                <div onkeyup="{! c.handleKeyUp }">
+                    <lightning:input
+                        name="search"
+                        label="Enter some text to search and hit enter"
+                        type="search"
+                        aura:id="enter-search"
+                        isLoading="{!v.isSearching}"
+                        placeholder="Search here... "
+                    />
+                </div>
             </aura:set>
 
             <!-- User information display component-->

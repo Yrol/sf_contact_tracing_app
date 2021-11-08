@@ -16,7 +16,7 @@ public class CTPersonController {
     }
 
     public static List<Person__c> searchPeople(String keywords) {
-        keywords = keywords + '%';
+        keywords = '%' + keywords + '%';
         List<Person__c> persons = [
             SELECT Name, Mobile__c, CreatedBy.Name, LastModifiedBy.Name, Health_Status__c, Status_Update_Date__c, Token__c
             FROM Person__c

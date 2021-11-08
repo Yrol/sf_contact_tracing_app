@@ -10,7 +10,7 @@ public class CTLocationController {
     }
 
     public static List<Location__c> searchLocations(String keywords) {
-        keywords = keywords + '%';
+        keywords = '%' + keywords + '%';
         List<Location__c> locations = [
             SELECT Name, Address__c, Red_Score__c, Pincode__c, Status__c, CreatedBy.Name, LastModifiedBy.Name, Owner.Name
             FROM Location__c

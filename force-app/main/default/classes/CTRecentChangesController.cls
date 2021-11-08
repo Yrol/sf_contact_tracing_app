@@ -10,12 +10,12 @@ public with sharing class CTRecentChangesController {
     }
 
     @AuraEnabled
-    public static List<Person__c> searchPeople(String searchTerm) {
-        return CTPersonController.searchPeople(searchTerm);
+    public static List<Person__c> searchPeople(String keywords) {
+        return CTPersonController.searchPeople(keywords);
     }
 
     @AuraEnabled
-    public static List<Location__c> searchLocations(String searchTerm) {
-        return CTLocationController.searchLocations(searchTerm);
+    public static List<Location__c> searchLocations(String keywords) {
+        return CTLocationController.searchLocations(keywords);
     }
 }
