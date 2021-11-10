@@ -32,5 +32,21 @@
                 helper.searchStatus(component, keyword);
             }
         }
+    },
+
+    handleRowAction: function (component, event, helper) {
+        const action = event.getParam('action');
+        const row = event.getParam('row');
+        const scope = component.get('v.scope');
+        switch (action.name) {
+            case 'view_details':
+                const appEvent = scope === "person" ? $A.get("e.c:CTPersonSelectEvent") : $A.get("e.c:CTLocationSelectEvent")
+                appEvent.setParam({
+                    record_id:row.Id,
+                    status: scope === "person" ? row.Health_Status__c : row.Status__c
+                })
+                appEvent.fire();
+                break;
+        }
     }
 })

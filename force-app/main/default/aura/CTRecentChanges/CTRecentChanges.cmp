@@ -26,7 +26,13 @@
             <lightning:layout horizontalAlign="left" class="slds-grid_vertical-align-end" multipleRows="true">
                 <lightning:layout horizontalAlign="left" class="slds-grid_vertical-align-end" multipleRows="true">
                     <lightning:layoutItem size="12" padding="around-small">
-                        <lightning:datatable keyField="id" data="{! v.data }" columns="{! v.columns }" hideCheckboxColumn="true" />
+                        <lightning:datatable
+                            keyField="id"
+                            data="{! v.data }"
+                            onrowaction="{! c.handleRowAction }"
+                            columns="{! v.columns }"
+                            hideCheckboxColumn="true"
+                        />
                     </lightning:layoutItem>
                 </lightning:layout>
             </lightning:layout>
