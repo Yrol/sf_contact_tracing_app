@@ -40,7 +40,12 @@
             </lightning:card>
         </div>
         <div class="slds-col slds-size_1-of-3">
-            <c:CTLocationView />
+            <aura:if isTrue="{!v.scope == 'location'}">
+                <c:CTLocationView />
+                <aura:set attribute="else">
+                    <c:CTPersonView />
+                </aura:set>
+            </aura:if>
         </div>
     </div>
 </aura:component>
