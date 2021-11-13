@@ -1,0 +1,7 @@
+<aura:component>
+    <aura:handler event="c:CTLocationSelectEvent" action="{!c.onLocationSelect}" />
+
+    <div class="container">
+        <lightning:card variant="Narrow" title="Location details" iconName="standard:account_info"> </lightning:card>
+    </div>
+</aura:component>

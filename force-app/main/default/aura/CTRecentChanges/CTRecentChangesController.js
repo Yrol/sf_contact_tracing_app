@@ -41,10 +41,8 @@
         switch (action.name) {
             case 'view_details':
                 const appEvent = scope === "person" ? $A.get("e.c:CTPersonSelectEvent") : $A.get("e.c:CTLocationSelectEvent")
-                appEvent.setParam({
-                    record_id:row.Id,
-                    status: scope === "person" ? row.Health_Status__c : row.Status__c
-                })
+                appEvent.setParam("recordId", row.Id);
+                appEvent.setParam( "status", scope === "person" ? row.Health_Status__c : row.Status__c);
                 appEvent.fire();
                 break;
         }
