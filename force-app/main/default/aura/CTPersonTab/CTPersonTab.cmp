@@ -1,0 +1,92 @@
+<aura:component implements="flexipage:availableForAllPageTypes" controller="CTPersonTabController">
+    <aura:attribute name="data" type="Object" />
+    <aura:attribute name="columns" type="List" />
+    <aura:attribute name="isSearching" type="Boolean" default="false" />
+    <aura:attribute name="resultsFound" type="Boolean" default="false" />
+
+    <aura:attribute name="name" type="String" />
+    <aura:attribute name="health_status" type="String" />
+    <aura:attribute name="phone" type="String" />
+    <aura:attribute name="token" type="String" />
+    <aura:attribute name="status_updated_on" type="Date" />
+    <aura:attribute name="contacts_count" type="Integer" default="0" />
+
+    <div class="container">
+        <div class="slds-grid slds-grid_align-end slds-grid_vertical-align-end">
+            <div class="slds-col slds-m-right--small">
+                <span>
+                    <lightning:input
+                        name="search"
+                        label="Enter a Person ID to Search"
+                        type="search"
+                        aura:id="enter-search"
+                        isLoading="{!v.isSearching}"
+                        placeholder="Search here... "
+                    />
+                </span>
+            </div>
+            <div class="slds-col">
+                <span><lightning:button label="Search Person" title="Search Person" onclick="{! c.handlePersonSearchClick }" /></span>
+            </div>
+        </div>
+        <aura:if isTrue="{!v.resultsFound}">
+            <div class="slds-col slds-size_8-of-12">
+                <div class="slds-grid slds-wrap slds-m-top--small">{!v.name} your current health status is {!v.health_status}</div>
+                <div class="slds-grid slds-wrap slds-gutters status-grid">
+                    <div class="slds-col">
+                        <div class="slds-grid slds-grid_vertical" style="height: 30px">
+                            <div class="slds-col">
+                                <span>Phone</span>
+                            </div>
+                            <div class="slds-col">
+                                <span>{!v.phone}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="slds-col">
+                        <div class="slds-grid slds-grid_vertical" style="height: 30px">
+                            <div class="slds-col">
+                                <span>Token</span>
+                            </div>
+                            <div class="slds-col">
+                                <span>{!v.token}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="slds-col">
+                        <div class="slds-grid slds-grid_vertical" style="height: 30px">
+                            <div class="slds-col">
+                                <span>Status updated on</span>
+                            </div>
+                            <div class="slds-col">
+                                <span>{!v.status_updated_on}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="slds-col">
+                        <div class="slds-grid slds-grid_vertical" style="height: 30px">
+                            <div class="slds-col">
+                                <span>Contact in last 30 days</span>
+                            </div>
+                            <div class="slds-col">
+                                <span>{!v.contacts_count}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="slds-grid slds-wrap slds-m-top--small">Recent contacts: {!v.contacts_count}</div>
+                <aura:if isTrue="{!(v.contacts_count > 0)}">
+                    <div class="slds-grid slds-wrap">
+                        <lightning:datatable
+                            keyField="id"
+                            data="{! v.data }"
+                            onrowaction="{! c.handleRowAction }"
+                            columns="{! v.columns }"
+                            hideCheckboxColumn="true"
+                        />
+                    </div>
+                </aura:if>
+            </div>
+        </aura:if>
+    </div>
+</aura:component>

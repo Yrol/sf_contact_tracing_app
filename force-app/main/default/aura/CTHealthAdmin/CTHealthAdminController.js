@@ -15,6 +15,9 @@
                 healthHeader.set("v.scope", "person");
                 healthHeader.changeStatusCount();
                 break;
+            case 'person_tab_view' :
+                healthHeader.set("v.title", "Person");
+                break;
         }
     },
 })

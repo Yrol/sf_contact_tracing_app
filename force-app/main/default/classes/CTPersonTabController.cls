@@ -1,4 +1,8 @@
 public with sharing class CTPersonTabController {
+    /**
+     * A wrapper class / custom object to combine a person record and teh contact details of that person for last 30 days.
+     * The contacts for last 30 days are stored into a List within the object.
+     */
     @AuraEnabled
     public static UserInformation getPersonDetails(String personId) {
         UserInformation userInformation = new UserInformation();
@@ -9,6 +13,8 @@ public with sharing class CTPersonTabController {
             userInformation.statusUpdateOn = person.Status_Update_Date__c;
             userInformation.phone = person.Mobile__c;
             userInformation.status = person.Health_Status__c;
+        } else {
+            return null;
         }
         List<People_Tracing__c> traces = CTPeopleTracingController.getTraces(personId);
 

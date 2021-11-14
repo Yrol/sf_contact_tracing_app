@@ -14,6 +14,9 @@
                     <lightning:tab label="Location View" id="location_view" onactive="{! c.handleActive }">
                         <c:CTRecentChanges scope="location" />
                     </lightning:tab>
+                    <lightning:tab label="Person" id="person_tab_view" onactive="{! c.handleActive }">
+                        <c:CTPersonTab />
+                    </lightning:tab>
                 </lightning:tabset>
             </lightning:layoutItem>
         </lightning:layout>
