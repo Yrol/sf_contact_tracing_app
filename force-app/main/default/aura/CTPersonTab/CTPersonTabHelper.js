@@ -36,6 +36,7 @@
                     console.log(resp);
                 } else {
                     component.set("v.resultsFound", false);
+                    this.showToast("Error", `Could not find any results related to the ID: ${personId}`, "error");
                 }
             }
 
@@ -56,5 +57,15 @@
         ]
 
         return columns;
+    },
+
+    showToast: function (title, message, type) {
+        const toastEvent = $A.get("e.force:showToast");
+        toastEvent.setParams({
+            title,
+            message,
+            type
+        });
+        toastEvent.fire();
     }
 })

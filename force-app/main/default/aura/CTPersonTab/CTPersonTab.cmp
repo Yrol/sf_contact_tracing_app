@@ -67,20 +67,14 @@
                         <span>Contact in last 30 days: {!v.contacts_count}</span>
                     </div>
                 </div>
-                <aura:if isTrue="{!(v.contacts_count > 0)}"
-                    ><div class="slds-grid slds-wrap recent-contacts-count">
-                        <div
-                            class="
-                                slds-col--padded
-                                slds-size--1-of-2
-                                slds-small-size--1-of-1
-                                slds-medium-size--2-of-6
-                                slds-large-size--3-of-12
-                            "
-                        >
-                            <span>Recent contacts: {!v.contacts_count}</span>
-                        </div>
+                <div class="slds-grid slds-wrap recent-contacts-count">
+                    <div
+                        class="slds-col--padded slds-size--1-of-2 slds-small-size--1-of-1 slds-medium-size--2-of-6 slds-large-size--3-of-12"
+                    >
+                        <span>Recent contacts: {!v.contacts_count}</span>
                     </div>
+                </div>
+                <aura:if isTrue="{!(v.contacts_count > 0)}">
                     <div class="slds-grid slds-wrap contacts">
                         <div class="slds-col--padded slds-large-size--12-of-12">
                             <lightning:datatable
