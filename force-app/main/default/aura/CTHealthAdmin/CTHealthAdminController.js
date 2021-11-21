@@ -18,6 +18,9 @@
             case 'person_tab_view' :
                 healthHeader.set("v.title", "Person");
                 break;
+            case 'location_tab_view' :
+                healthHeader.set("v.title", "Location");
+                break;
         }
     },
 })

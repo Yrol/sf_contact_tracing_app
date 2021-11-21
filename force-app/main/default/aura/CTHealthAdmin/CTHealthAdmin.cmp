@@ -17,6 +17,9 @@
                     <lightning:tab label="Person" id="person_tab_view" onactive="{! c.handleActive }">
                         <c:CTPersonTab />
                     </lightning:tab>
+                    <lightning:tab label="Location" id="location_tab_view" onactive="{! c.handleActive }">
+                        <c:CTLocationTab />
+                    </lightning:tab>
                 </lightning:tabset>
             </lightning:layoutItem>
         </lightning:layout>

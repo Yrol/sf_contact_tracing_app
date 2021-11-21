@@ -1,7 +1,7 @@
 public class CTLocationTracingController {
     public static List<Location_Tracing__c> getVisitors(String locationId) {
         List<Location_Tracing__c> locationsTracing = [
-            SELECT Id, Visit_Date__c, Location__c, Person__r.Health_Status__c, Person__r.Name
+            SELECT Id, Visit_Date__c, Location__c, Person__r.Health_Status__c, Person__r.Name,
             FROM Location_Tracing__c
             WHERE Id = :locationId
             ORDER BY Visit_Date__c

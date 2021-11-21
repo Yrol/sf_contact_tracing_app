@@ -23,7 +23,7 @@ public class CTLocationController {
 
     public static Location__c getLocationById(String locationId) {
         List<Location__c> locations = [
-            SELECT Id, Name, Address__c, Red_Score__c, Pincode__c, Status__c, CreatedBy.Name, LastModifiedBy.Name, Owner.Name
+            SELECT Id, Name, Address__c, Red_Score__c, Pincode__c, Status__c, CreatedBy.Name, LastModifiedBy.Name, Owner.Name, Status_Update_Date__c
             FROM Location__c
             WHERE Id = :locationId
         ];
