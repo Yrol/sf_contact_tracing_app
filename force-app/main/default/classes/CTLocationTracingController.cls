@@ -3,7 +3,7 @@ public class CTLocationTracingController {
         List<Location_Tracing__c> locationsTracing = [
             SELECT Id, Visit_Date__c, Location__c, Person__r.Health_Status__c, Person__r.Name,
             FROM Location_Tracing__c
-            WHERE Id = :locationId
+            WHERE Location__c = :locationId
             ORDER BY Visit_Date__c
         ];
         return locationsTracing;
